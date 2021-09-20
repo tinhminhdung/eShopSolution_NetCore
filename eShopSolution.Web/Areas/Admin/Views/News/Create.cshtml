@@ -1,0 +1,80 @@
+﻿@model eShopSolution.ViewModels.Catalog.News.NewsCreateRequest
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>NewsCreateRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.Raw(TempData["Message"])
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoAlias" class="control-label"></label>
+                <input asp-for="SeoAlias" class="form-control" />
+                <span asp-validation-for="SeoAlias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagesSmall" class="control-label"></label>
+                <input asp-for="ImagesSmall" class="form-control" />
+                <span asp-validation-for="ImagesSmall" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Images" class="control-label"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Alt" class="control-label"></label>
+                <input asp-for="Alt" class="form-control" />
+                <span asp-validation-for="Alt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brief" class="control-label"></label>
+                <input asp-for="Brief" class="form-control" />
+                <span asp-validation-for="Brief" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                <input asp-for="Details" class="form-control" />
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoTitle" class="control-label"></label>
+                <input asp-for="SeoTitle" class="form-control" />
+                <span asp-validation-for="SeoTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoKeyword" class="control-label"></label>
+                <input asp-for="SeoKeyword" class="form-control" />
+                <span asp-validation-for="SeoKeyword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoDescription" class="control-label"></label>
+                <input asp-for="SeoDescription" class="form-control" />
+                <span asp-validation-for="SeoDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,109 @@
+﻿@using eShopSolution.ViewModels.Common;
+@using eShopSolution.Utilities.Commond;
+@model PagedResult<eShopSolution.ViewModels.Catalog.Menu.MenuVm>
+
+@{ ViewData["Title"] = "Danh sách Menu"; }
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);</script>
+}
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <h1 class="mt-4">Danh sách Menu</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách Menu</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <a class="btn btn-success" asp-action="Create" asp-controller="MenuNews">Tạo mới</a>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            <div class="cold-md-3">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/MenuNews/Index'" class="btn btn-dark">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                @TempData["result"]
+
+                @if (ViewBag.SuccessMsg != null)
+                {
+    <div id="msgAlert" class="alert alert-success" role="alert">
+        @ViewBag.SuccessMsg
+    </div>}
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ảnh
+                            </th>
+                            <th>
+                                Tên
+                            </th>
+                            <th>
+                                Ngày tạo
+                            </th>
+                            <th>
+                                Thứ tự
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+                                Chức năng
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Items)
+                        {
+            <tr>
+                <td>
+                    @Html.Raw(Commond.Image_width_height_Admin(item.Images.ToString(), "40", "40"))
+                </td>
+                <td>
+                    @Html.Raw(Commond.Hienthihinhcay(item.Level.ToString()))
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Create_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orders)
+                </td>
+                <td>
+                    @Html.Raw(Commond.Enable(item.Status.ToString()))
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Cấp con", "Create", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                </td>
+            </tr>}
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pagers", Model)
+        </div>
+    </div>
+</div>

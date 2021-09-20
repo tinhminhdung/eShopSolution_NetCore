@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<eShopSolution.ViewModels.Catalog.News.NewsVm>
+@*<script src="~/js/jquery-1.9.1.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/adapters/jquery.js"></script>
+    <script>
+        $("#rtxBlogContent").ckeditor();
+    </script>*@
+
+@*<script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Files&responseType=json'
+                },
+                toolbar: ['ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo']
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    </script>*@
+
+
+@*@Html.TextArea("rtxBlogContent", new { @class = "ckeditor" })*@
+
+
+menu
+<br />
+<hr />
+Menu thông qua query dapper kiểu 1
+<br />
+@ViewBag.querysql
+<br />
+
+<br />
+<hr />
+Menu thông qua query dapper  kiểu 2
+<br />
+@ViewBag.querysql2
+<br />
+
+<br />
+<hr />
+Menu thông qua query dapper  kiểu 3
+<br />
+@ViewBag.querysql3
+<br />
+
+
+<hr />
+<br />
+<br />
+<hr />
+<br />
+@ViewBag.Hienthimenus
+<br />
+<hr />
+<br />
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="text-center">
+            <h1 class="display-4">@item.Name</h1>
+            <p>@item.Brief</p>
+        </div>
+    }
+}
+<br />
+@ViewBag.Hienthi
+

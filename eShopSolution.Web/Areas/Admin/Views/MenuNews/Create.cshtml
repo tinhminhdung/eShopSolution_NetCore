@@ -1,0 +1,151 @@
+﻿@model eShopSolution.ViewModels.Catalog.Menu.MenuVm
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<script src="~/lib/ckeditor/adapters/jquery.js"></script>
+<script>
+    $("#Details").ckeditor();
+</script>
+<script>
+    $(document).ready(function () {
+        $('.flImage').change(function () {
+            debugger;
+            var filename = $(this).val();
+            var lastIndex = filename.lastIndexOf("\\");
+            if (lastIndex >= 0) {
+                filename = filename.substring(lastIndex + 1);
+            }
+            $('#fileuploadurl').text(filename);
+            $('#FileImages').val($('#Images').val());
+
+        });
+    });
+</script>
+<style>
+    .chonfile > img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 139px;
+        zoom: 80%;
+    }
+    #fileuploadurl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        color: #333;
+        width: 79%;
+        padding-right: 40px;
+        height: 100%;
+        overflow: hidden;
+        line-height: 40px;
+        padding-left: 15px;
+        border: 1px solid #eaeaea;
+        border-radius: 4px;
+        padding-top: 3px !important;
+    }
+
+    #Images {
+        z-index: 1;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        height: 43px;
+    }
+
+    .chonfile {
+        position: relative;
+    }
+
+    .Filename {
+        float: right;
+        width: 344px;
+        padding-top: 5px;
+        color: red;
+    }
+
+        .Filename a {
+            color: red;
+        }
+</style>
+<h1>Create</h1>
+
+<h4>MenuVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<label asp-for="Images" class="control-label"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>*@
+
+                    <div class="chonfile">
+                        <span id="fileuploadurl">Chọn File Học bạ</span>
+                        <input type="file" name="Images" id="Images" class="upload flImage" accept=".doc,.docx,.pdf,.xls,.xlsx,.rar,.zip,.jpg,.png" />
+                        <input type="hidden" id="FileImages" name="FileImages" value="">
+                    </div>
+
+                    <div style="clear:both"></div>
+                    <div class="Filename">@Html.Raw(ViewBag.FileImages)</div>
+                    <div style="clear:both"></div>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details" class="control-label"></label>
+                    @*<input asp-for="Details" class="form-control" />*@
+                    @Html.TextArea("Details", new { @class = "ckeditor" })
+                    <span asp-validation-for="Details" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Orders" class="control-label"></label>
+                    <input asp-for="Orders" value="1" class="form-control" />
+                    <span asp-validation-for="Orders" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SeoTitle" class="control-label"></label>
+                    <input asp-for="SeoTitle" class="form-control" />
+                    <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SeoDescription" class="control-label"></label>
+                    <input asp-for="SeoDescription" class="form-control" />
+                    <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SeoKeyword" class="control-label"></label>
+                    <input asp-for="SeoKeyword" class="form-control" />
+                    <span asp-validation-for="SeoKeyword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input type="checkbox" data-val="true" id="IsChecked" name="IsChecked" value="true">
+                    <input name="IsChecked" type="hidden" value="false">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+                @Html.Hidden("Parent_ID", (object)ViewBag.Parent_ID)
+                @Html.Hidden("Level", (object)ViewBag.Level)
+            </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

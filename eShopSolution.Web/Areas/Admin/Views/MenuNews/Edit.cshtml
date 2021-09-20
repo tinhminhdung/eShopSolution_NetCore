@@ -1,0 +1,97 @@
+﻿@model eShopSolution.ViewModels.Catalog.Menu.MenuVm
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<script src="~/lib/ckeditor/adapters/jquery.js"></script>
+<script>
+    $("#Details").ckeditor();
+</script>
+
+
+<h1>Edit</h1>
+
+<h4>MenuVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="Images" class="control-label"></label>
+            <input asp-for="Images" class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>*@
+
+                <div class="chonfile">
+                    <span id="fileuploadurl">Chọn File Học bạ</span>
+                    <input type="file"  name="Images" id="Images" class="upload flImage" accept=".doc,.docx,.pdf,.xls,.xlsx,.rar,.zip,.jpg,.png" />
+                    <input type="hidden" id="FileImages" name="FileImages" value="">
+                </div>
+
+                <div style="clear:both"></div>
+                <div class="Filename">@Html.Raw(ViewBag.FileImages)</div>
+                <div style="clear:both"></div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                @*<input asp-for="Details" class="form-control" />*@
+                @Html.TextArea("Details", new { @class = "ckeditor" })
+                @*@Html.TextArea("Details", (string)ViewBag.Details, new { @class = "ckeditor" })*@
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Orders" class="control-label"></label>
+                <input asp-for="Orders" class="form-control" />
+                <span asp-validation-for="Orders" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SeoTitle" class="control-label"></label>
+                <input asp-for="SeoTitle" class="form-control" />
+                <span asp-validation-for="SeoTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoDescription" class="control-label"></label>
+                <input asp-for="SeoDescription" class="form-control" />
+                <span asp-validation-for="SeoDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeoKeyword" class="control-label"></label>
+                <input asp-for="SeoKeyword" class="form-control" />
+                <span asp-validation-for="SeoKeyword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input type="checkbox" data-val="true" id="IsChecked" name="IsChecked" value="true">
+                <input name="IsChecked" type="hidden" value="false">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+            </div>
+            <input type="hidden" asp-for="Parent_ID">
+            <input type="hidden" asp-for="Level">
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List </a>
+</div>
+@section Scripts {
+    @if (ViewBag.checkbox != null)
+    {
+        <script type="text/javascript"> document.getElementById("IsChecked").checked = '@ViewBag.checkbox';</script>
+    }
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
